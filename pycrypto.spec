@@ -4,12 +4,12 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 11
+Release  : 12
 URL      : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz
 Source0  : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz
 Summary  : Cryptographic modules for Python.
 Group    : Development/Tools
-License  : Muddy-MIT Python-2.0
+License  : Python-2.0
 Requires: pycrypto-python
 BuildRequires : gmp-dev
 BuildRequires : pbr
@@ -48,12 +48,12 @@ python3 setup.py build -b py3
 %check
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=intel.com,localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 python setup.py test
 %install
 rm -rf %{buildroot}
-python2 setup.py build -b py2 install --root=%{buildroot}
-python3 setup.py build -b py3 install --root=%{buildroot}
+python2 -tt setup.py build -b py2 install --root=%{buildroot}
+python3 -tt setup.py build -b py3 install --root=%{buildroot}
 
 %files
 %defattr(-,root,root,-)
