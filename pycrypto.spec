@@ -4,7 +4,7 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 13
+Release  : 14
 URL      : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz
 Source0  : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz
 Summary  : Cryptographic modules for Python.
@@ -14,7 +14,6 @@ Requires: pycrypto-python
 BuildRequires : gmp-dev
 BuildRequires : pbr
 BuildRequires : pip
-BuildRequires : pycrypto
 BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : setuptools
@@ -49,7 +48,7 @@ python3 setup.py build -b py3
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-python setup.py test
+PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python setup.py test
 %install
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot}
