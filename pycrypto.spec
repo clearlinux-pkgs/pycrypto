@@ -6,7 +6,7 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 23
+Release  : 24
 URL      : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz
 Source0  : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz
 Source99 : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz.asc
@@ -20,6 +20,7 @@ BuildRequires : pip
 BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : setuptools
+Patch1: cve-2013-7459.patch
 
 %description
 Python Cryptography Toolkit (pycrypto)
@@ -42,10 +43,11 @@ python components for the pycrypto package.
 
 %prep
 %setup -q -n pycrypto-2.6.1
+%patch1 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1484563895
+export SOURCE_DATE_EPOCH=1488303725
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
@@ -55,7 +57,7 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python setup.py test
 %install
-export SOURCE_DATE_EPOCH=1484563895
+export SOURCE_DATE_EPOCH=1488303725
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
