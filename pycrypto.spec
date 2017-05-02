@@ -6,7 +6,7 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 24
+Release  : 25
 URL      : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz
 Source0  : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz
 Source99 : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz.asc
