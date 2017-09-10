@@ -6,13 +6,14 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 26
+Release  : 27
 URL      : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
 Source0  : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
-Source99 : https://pypi.python.org/packages/source/p/pycrypto/pycrypto-2.6.1.tar.gz.asc
+Source99 : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz.asc
 Summary  : Cryptographic modules for Python.
 Group    : Development/Tools
 License  : Python-2.0
+Requires: pycrypto-legacypython
 Requires: pycrypto-python
 BuildRequires : gmp-dev
 BuildRequires : pbr
@@ -33,9 +34,18 @@ almost certainly not change in an incompatible way in the future; all
 that remains to be done is to fix any bugs that show up.  If you
 encounter a bug, please report it in the Launchpad bug tracker at
 
+%package legacypython
+Summary: legacypython components for the pycrypto package.
+Group: Default
+
+%description legacypython
+legacypython components for the pycrypto package.
+
+
 %package python
 Summary: python components for the pycrypto package.
 Group: Default
+Requires: pycrypto-legacypython
 
 %description python
 python components for the pycrypto package.
@@ -50,7 +60,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1503073916
+export SOURCE_DATE_EPOCH=1505056925
 export CFLAGS="$CFLAGS -fstack-protector-strong "
 export FCFLAGS="$CFLAGS -fstack-protector-strong "
 export FFLAGS="$CFLAGS -fstack-protector-strong "
@@ -64,7 +74,7 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python setup.py test
 %install
-export SOURCE_DATE_EPOCH=1503073916
+export SOURCE_DATE_EPOCH=1505056925
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
@@ -75,7 +85,10 @@ echo ----[ mark ]----
 %files
 %defattr(-,root,root,-)
 
-%files python
+%files legacypython
 %defattr(-,root,root,-)
 /usr/lib/python2*/*
+
+%files python
+%defattr(-,root,root,-)
 /usr/lib/python3*/*
