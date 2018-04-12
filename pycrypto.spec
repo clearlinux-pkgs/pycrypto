@@ -6,14 +6,13 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 34
+Release  : 35
 URL      : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
 Source0  : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
 Source99 : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz.asc
 Summary  : Cryptographic modules for Python.
 Group    : Development/Tools
 License  : Python-2.0
-Requires: pycrypto-legacypython
 Requires: pycrypto-python3
 Requires: pycrypto-python
 BuildRequires : gmp-dev
@@ -34,15 +33,6 @@ This section is essentially complete, and the software interface will
 almost certainly not change in an incompatible way in the future; all
 that remains to be done is to fix any bugs that show up.  If you
 encounter a bug, please report it in the Launchpad bug tracker at
-
-%package legacypython
-Summary: legacypython components for the pycrypto package.
-Group: Default
-Requires: python-core
-
-%description legacypython
-legacypython components for the pycrypto package.
-
 
 %package python
 Summary: python components for the pycrypto package.
@@ -71,12 +61,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1517697684
-export CFLAGS="$CFLAGS -fstack-protector-strong "
-export FCFLAGS="$CFLAGS -fstack-protector-strong "
-export FFLAGS="$CFLAGS -fstack-protector-strong "
-export CXXFLAGS="$CXXFLAGS -fstack-protector-strong "
-python2 setup.py build -b py2
+export SOURCE_DATE_EPOCH=1523551526
+export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs "
+export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs "
+export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs "
+export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs "
 python3 setup.py build -b py3
 
 %check
@@ -85,20 +74,14 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 PYTHONPATH=%{buildroot}/usr/lib/python3.6/site-packages python3 setup.py test
 %install
-export SOURCE_DATE_EPOCH=1517697684
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
-python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+python3 -tt setup.py build -b py3 install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
-
-%files legacypython
-%defattr(-,root,root,-)
-/usr/lib/python2*/*
 
 %files python
 %defattr(-,root,root,-)
