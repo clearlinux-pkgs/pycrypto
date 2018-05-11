@@ -6,7 +6,7 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 35
+Release  : 36
 URL      : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
 Source0  : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
 Source99 : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz.asc
@@ -61,11 +61,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1523551526
-export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs "
-export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs "
-export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs "
-export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs "
+export SOURCE_DATE_EPOCH=1526017838
+export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 python3 setup.py build -b py3
 
 %check
