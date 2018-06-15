@@ -18,7 +18,7 @@ Requires: pycrypto-python
 BuildRequires : gmp-dev
 BuildRequires : pbr
 BuildRequires : pip
-BuildRequires : python-dev
+
 BuildRequires : python3-dev
 BuildRequires : setuptools
 Patch1: cve-2013-7459.patch
