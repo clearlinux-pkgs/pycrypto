@@ -6,7 +6,7 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 41
+Release  : 42
 URL      : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
 Source0  : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
 Source99 : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz.asc
@@ -14,13 +14,11 @@ Summary  : Cryptographic modules for Python.
 Group    : Development/Tools
 License  : Python-2.0
 Requires: pycrypto-python3
+Requires: pycrypto-license
 Requires: pycrypto-python
+BuildRequires : buildreq-distutils3
 BuildRequires : gmp-dev
-BuildRequires : pbr
-BuildRequires : pip
-
 BuildRequires : python3-dev
-BuildRequires : setuptools
 Patch1: cve-2013-7459.patch
 
 %description
@@ -33,6 +31,14 @@ This section is essentially complete, and the software interface will
 almost certainly not change in an incompatible way in the future; all
 that remains to be done is to fix any bugs that show up.  If you
 encounter a bug, please report it in the Launchpad bug tracker at
+
+%package license
+Summary: license components for the pycrypto package.
+Group: Default
+
+%description license
+license components for the pycrypto package.
+
 
 %package python
 Summary: python components for the pycrypto package.
@@ -61,20 +67,18 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1526017838
+export SOURCE_DATE_EPOCH=1533929967
 export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 python3 setup.py build -b py3
 
-%check
-export http_proxy=http://127.0.0.1:9/
-export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python3.6/site-packages python3 setup.py test
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/pycrypto
+cp COPYRIGHT %{buildroot}/usr/share/doc/pycrypto/COPYRIGHT
+cp LEGAL/copy/LICENSE.python-2.2 %{buildroot}/usr/share/doc/pycrypto/LEGAL_copy_LICENSE.python-2.2
 python3 -tt setup.py build -b py3 install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -82,6 +86,11 @@ echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/pycrypto/COPYRIGHT
+/usr/share/doc/pycrypto/LEGAL_copy_LICENSE.python-2.2
 
 %files python
 %defattr(-,root,root,-)
