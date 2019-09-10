@@ -6,10 +6,10 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 47
-URL      : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
-Source0  : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
-Source99 : http://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz.asc
+Release  : 48
+URL      : https://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
+Source0  : https://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
+Source1 : https://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz.asc
 Summary  : Cryptographic modules for Python.
 Group    : Development/Tools
 License  : Python-2.0
@@ -68,15 +68,21 @@ python3 components for the pycrypto package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1540316185
-export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1568145130
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pycrypto
 cp COPYRIGHT %{buildroot}/usr/share/package-licenses/pycrypto/COPYRIGHT
