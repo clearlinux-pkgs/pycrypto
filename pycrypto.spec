@@ -6,7 +6,7 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 49
+Release  : 50
 URL      : https://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
 Source0  : https://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
 Source1 : https://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz.asc
