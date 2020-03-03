@@ -6,10 +6,10 @@
 #
 Name     : pycrypto
 Version  : 2.6.1
-Release  : 51
+Release  : 52
 URL      : https://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
 Source0  : https://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz
-Source1 : https://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz.asc
+Source1  : https://pypi.debian.net/pycrypto/pycrypto-2.6.1.tar.gz.asc
 Summary  : Cryptographic modules for Python.
 Group    : Development/Tools
 License  : Python-2.0
@@ -54,6 +54,7 @@ python components for the pycrypto package.
 Summary: python3 components for the pycrypto package.
 Group: Default
 Requires: python3-core
+Provides: pypi(pycrypto)
 
 %description python3
 python3 components for the pycrypto package.
@@ -61,6 +62,7 @@ python3 components for the pycrypto package.
 
 %prep
 %setup -q -n pycrypto-2.6.1
+cd %{_builddir}/pycrypto-2.6.1
 %patch1 -p1
 %patch2 -p1
 
@@ -69,15 +71,16 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568145130
+export SOURCE_DATE_EPOCH=1583205591
+# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CFLAGS="$CFLAGS -O3 -fcf-protection=full -ffat-lto-objects -flto=4 -fstack-protector-strong "
+export FCFLAGS="$CFLAGS -O3 -fcf-protection=full -ffat-lto-objects -flto=4 -fstack-protector-strong "
+export FFLAGS="$CFLAGS -O3 -fcf-protection=full -ffat-lto-objects -flto=4 -fstack-protector-strong "
+export CXXFLAGS="$CXXFLAGS -O3 -fcf-protection=full -ffat-lto-objects -flto=4 -fstack-protector-strong "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
@@ -85,8 +88,8 @@ python3 setup.py build
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pycrypto
-cp COPYRIGHT %{buildroot}/usr/share/package-licenses/pycrypto/COPYRIGHT
-cp LEGAL/copy/LICENSE.python-2.2 %{buildroot}/usr/share/package-licenses/pycrypto/LEGAL_copy_LICENSE.python-2.2
+cp %{_builddir}/pycrypto-2.6.1/COPYRIGHT %{buildroot}/usr/share/package-licenses/pycrypto/d86fb3f981d36e1f2890c7aaea6f8bcbb7ad4a27
+cp %{_builddir}/pycrypto-2.6.1/LEGAL/copy/LICENSE.python-2.2 %{buildroot}/usr/share/package-licenses/pycrypto/e2e326a9a73b4a86d3aa275bb1b9797ab1f047b7
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -97,8 +100,8 @@ echo ----[ mark ]----
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/pycrypto/COPYRIGHT
-/usr/share/package-licenses/pycrypto/LEGAL_copy_LICENSE.python-2.2
+/usr/share/package-licenses/pycrypto/d86fb3f981d36e1f2890c7aaea6f8bcbb7ad4a27
+/usr/share/package-licenses/pycrypto/e2e326a9a73b4a86d3aa275bb1b9797ab1f047b7
 
 %files python
 %defattr(-,root,root,-)
